@@ -1,0 +1,50 @@
+package UnitIndexer2
+
+public function unit.getIndex() returns integer
+	return this.getUserData()
+
+public function unit.toUnitIndex() returns UnitIndex
+	UnitIndex instance = this.getUserData() castTo UnitIndex
+	if instance == null and not this.hasAbility('Aloc')
+		instance = new UnitIndex(this)
+	return instance
+	
+public function unit.removeUnitIndex()
+	int i = this.getUserData()
+	if i == 0
+		return
+	destroy i castTo UnitIndex
+
+public function unit.getUnitIndexInstance() returns UnitIndex
+	return this.toUnitIndex()
+
+public class UnitIndex
+	protected unit _unit
+
+	function getUnit() returns unit
+		return this._unit
+
+	function getIndex() returns int
+		return this castTo int
+
+	construct(unit whichUnit)
+		this._unit = whichUnit
+		this._unit.setUserData(this castTo int)
+
+	ondestroy
+		this._unit.setUserData(0)
+
+
+// Auto instanciation/destruction
+// Changed because original version breaks when a hero learns a skill
+init
+	CreateTrigger()
+		..registerRectEnterEventSource(GetPlayableMapRect())
+		..addAction(() -> GetTriggerUnit().toUnitIndex())
+	CreateTrigger()
+		..registerRectLeaveEventSource(GetPlayableMapRect())
+		..addAction(() -> GetTriggerUnit().removeUnitIndex())
+	group allUnits = GetUnitsInRectAll(GetPlayableMapRect())
+	for unit u in allUnits
+		u.toUnitIndex()
+	allUnits.destr()

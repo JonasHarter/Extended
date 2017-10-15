@@ -1,0 +1,15 @@
+//TODO:
+//Test
+//RestrictToObservers
+package ObserverChat
+
+
+	init
+		SetMapFlag( MAP_OBSERVERS, true )
+		SetMapFlag( MAP_OBSERVERS_ON_DEATH, true )
+	
+	function EnableObserverChat(player p)
+		CustomDefeatBJ( p, "ObserverChatEnabled" )
+		let stub = DialogCreate()
+		DialogDisplayBJ( true, stub, Player(0) )
+		DialogDisplayBJ( false, stub, Player(0) )

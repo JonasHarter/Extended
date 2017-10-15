@@ -1,0 +1,16 @@
+package Force2
+
+	public function force.addPlayer(player p)
+		ForceAddPlayer(this, p)
+
+	public function force.removePlayer(player p)
+		ForceRemovePlayer(this, p)
+
+	public function force.clear()
+		ForceClear(this)
+		
+	public function force.contains(player p) returns bool
+		for player p2 in this
+			if p2 == p
+				return true
+		return false
