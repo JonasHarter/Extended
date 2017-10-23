@@ -31,9 +31,12 @@ package Unit2
 		
 	public function unit.addItemInSlot(int itemID, int slotID)
 		UnitAddItemToSlotById(this, itemID, slotID)
+
+	public function unit.getItemInSlot(int slotID) returns item
+		return UnitItemInSlot(this, slotID)
 		
 	public function unit.dropItemInSlot(int slotID) returns item
 		return UnitRemoveItemFromSlot(this, slotID)
 		
-	public function CreateUnit2(player p, int unitid, vec2 pos, real face) returns unit
+	public function createUnit2(player p, int unitid, vec2 pos, real face) returns unit
 		return CreateUnit(p, unitid, pos.x, pos.y, face)

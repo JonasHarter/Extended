@@ -38,12 +38,12 @@ public class UnitIndex
 // Auto instanciation/destruction
 // Changed because original version breaks when a hero learns a skill
 init
-	CreateTrigger()
-		..registerRectEnterEventSource(GetPlayableMapRect())
+	trigger t = CreateTrigger()
 		..addAction(() -> GetTriggerUnit().toUnitIndex())
-	CreateTrigger()
-		..registerRectLeaveEventSource(GetPlayableMapRect())
+	TriggerRegisterEnterRectSimple(t, GetPlayableMapRect())
+	trigger t2 = CreateTrigger()
 		..addAction(() -> GetTriggerUnit().removeUnitIndex())
+	TriggerRegisterEnterRectSimple(t2, GetPlayableMapRect())
 	group allUnits = GetUnitsInRectAll(GetPlayableMapRect())
 	for unit u in allUnits
 		u.toUnitIndex()
